@@ -15,6 +15,7 @@ func getRequestData(r *http.Request, cid string) string {
 	referer := r.Referer()
 	ua := r.UserAgent()
 	addr := r.RemoteAddr
+	trueAddr := r.Header.Get("X-Real-IP")
 	uri := r.RequestURI
 	url := r.URL
 
@@ -27,6 +28,7 @@ func getRequestData(r *http.Request, cid string) string {
 	outputJSON = fmt.Sprintf("%s,\"EscapedPath\" : \"%s\"", outputJSON, url.EscapedPath())
 	outputJSON = fmt.Sprintf("%s,\"Url\" : \"%s\"", outputJSON, url.String())
 	outputJSON = fmt.Sprintf("%s,\"RemoteAddr\" : \"%s\"", outputJSON, addr)
+	outputJSON = fmt.Sprintf("%s,\"TrueRemoteAddr\" : \"%s\"", outputJSON, trueAddr)
 	outputJSON = fmt.Sprintf("%s,\"RequestURI\" : \"%s\"", outputJSON, uri)
 	outputJSON = fmt.Sprintf("%s,\"Query\" : \"%s\"", outputJSON, url.RawQuery)
 	outputJSON = fmt.Sprintf("%s}", outputJSON)
